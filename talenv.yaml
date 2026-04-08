@@ -1,0 +1,5 @@
+# Variaveis de ambiente para o Talos
+# SOPS: age ou gpg recomendado
+TALOS_VERSION: v1.7.5
+KUBERNETES_VERSION: v1.30.2
+DOMAIN: example.com

@@ -1,0 +1,33 @@
+version: '3'
+
+vars:
+  TALOS_VERSION: v1.7.5
+  KUBERNETES_VERSION: 1.30.2
+
+tasks:
+  talos:generate-config:
+    desc: Gerar configuracao do Talos via template
+    cmds:
+      - echo "Gerando configuracao do Talos..."
+      - # Adicionar comando real do talhelper ou talosctl aqui se necessario
+
+  talos:apply-node:
+    desc: Aplicar configuracao no node
+    cmds:
+      - echo "Aplicando configuracao no node..."
+
+  bootstrap:talos:
+    desc: Bootstrap do cluster Talos
+    cmds:
+      - echo "Iniciando bootstrap do Talos..."
+
+  bootstrap:argocd:
+    desc: Instalar ArgoCD
+    cmds:
+      - kubectl create namespace argocd --dry-run=client -o yaml | kubectl apply -f -
+      - kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+
+  talos:reset:
+    desc: Reset do cluster
+    cmds:
+      - echo "Resetando cluster..."

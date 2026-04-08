@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: cloudflared
+  namespace: argocd
+spec:
+  project: default
+  source:
+    chart: cloudflared
+    repoURL: https://cloudflare.github.io/helm-charts
+    targetRevision: 0.3.3
+    helm:
+      values: |
+        cloudflare:
+          tunnelName: home-cluster
+          tunnelId: ""
+          secretName: cloudflared-tunnel-secret
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: kube-system
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true

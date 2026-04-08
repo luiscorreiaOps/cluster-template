@@ -1,0 +1,18 @@
+clusterName: home-cluster
+talosVersion: v1.7.5
+kubernetesVersion: v1.30.2
+endpoint: https://192.168.1.10:6443
+nodes:
+  - hostname: master-01
+    ipAddress: 192.168.1.10
+    controlPlane: true
+    installDisk: /dev/sda
+  - hostname: worker-01
+    ipAddress: 192.168.1.20
+    controlPlane: false
+    installDisk: /dev/sda
+controlPlane:
+  patches:
+    - |-
+      cluster:
+        allowSchedulingOnControlPlanes: true
