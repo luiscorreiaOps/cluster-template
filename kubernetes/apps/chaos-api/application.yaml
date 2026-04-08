@@ -1,0 +1,20 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: chaos-api
+  namespace: argocd
+spec:
+  project: default
+  source:
+    repoURL: https://github.com/luiscorreiaOps/cluster-template.git
+    targetRevision: HEAD
+    path: kubernetes/apps/chaos-api
+  destination:
+    server: https://kubernetes.default.svc
+    namespace: chaos-api
+  syncPolicy:
+    automated:
+      prune: true
+      selfHeal: true
+    syncOptions:
+      - CreateNamespace=true

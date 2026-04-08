@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: chaos-api
+  namespace: chaos-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: chaos-api
+  template:
+    metadata:
+      labels:
+        app: chaos-api
+    spec:
+      containers:
+      - name: chaos-api
+        image: rickdevops/chaos-api:latest
+        ports:
+        - containerPort: 8000
+        resources:
+          limits:
+            cpu: 500m
+            memory: 512Mi
+          requests:
+            cpu: 100m
+            memory: 128Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: chaos-api
+  namespace: chaos-api
+spec:
+  selector:
+    app: chaos-api
+  ports:
+  - port: 80
+    targetPort: 8000

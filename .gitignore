@@ -1,0 +1,5 @@
+bin/
+.env
+*.log
+yamllint-*
+README2.md

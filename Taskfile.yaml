@@ -5,29 +5,32 @@ vars:
   KUBERNETES_VERSION: 1.30.2
 
 tasks:
+  bootstrap:tools:
+    desc: Instala localmente
+    cmds:
+    - mkdir -p bin
+    - curl -sL https://github.com/go-task/task/releases/download/v3.38.0/task_linux_amd64.tar.gz | tar xz -C bin task
+    - curl -sL https://github.com/siderolabs/talos/releases/download/v1.7.5/talosctl-linux-amd64 -o bin/talosctl
+    - curl -sL https://github.com/getsops/sops/releases/download/v3.8.1/sops-v3.8.1.linux.amd64 -o bin/sops
+    - curl -sL https://github.com/FiloSottile/age/releases/download/v1.2.0/age-v1.2.0-linux-amd64.tar.gz | tar xz --strip-components=1 -C bin age/age age/age-keygen
+    - chmod +x bin/*
+
   talos:generate-config:
-    desc: Gerar configuracao do Talos via template
-    cmds:
-      - echo "Gerando configuracao do Talos..."
-      - # Adicionar comando real do talhelper ou talosctl aqui se necessario
+    desc: Config do Talos via template
 
-  talos:apply-node:
-    desc: Aplicar configuracao no node
+  bootstrap:cluster:
+    desc: cluster Talos local via Docker
     cmds:
-      - echo "Aplicando configuracao no node..."
-
-  bootstrap:talos:
-    desc: Bootstrap do cluster Talos
-    cmds:
-      - echo "Iniciando bootstrap do Talos..."
+    - ./bin/talosctl cluster create --name home-cluster --provisioner docker
+    - ./bin/talosctl kubeconfig --context home-cluster --nodes 10.5.0.2
 
   bootstrap:argocd:
-    desc: Instalar ArgoCD
+    desc: Inst ArgoCD no cluster
     cmds:
-      - kubectl create namespace argocd --dry-run=client -o yaml | kubectl apply -f -
-      - kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml
+    - kubectl create namespace argocd --dry-run=client -o yaml | kubectl apply -f -
+    - kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml --server-side --force-conflicts
 
   talos:reset:
     desc: Reset do cluster
     cmds:
-      - echo "Resetando cluster..."
+    - ./bin/talosctl cluster destroy --name home-cluster

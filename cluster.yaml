@@ -1,8 +1,8 @@
 clusterName: home-cluster
-domain: example.com
+domain: algumurl.com
 network:
   gateway: 192.168.1.1
   subnet: 192.168.1.0/24
 cloudflare:
-  domain: example.com
+  domain: algumurl.com
   tunnel_id: ""

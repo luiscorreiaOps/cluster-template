@@ -6,7 +6,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/YOUR_USER/YOUR_REPO.git
+    repoURL: https://github.com/luiscorreiaOps/cluster-template.git
     targetRevision: HEAD
     path: kubernetes/argocd
   destination:
@@ -25,7 +25,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/YOUR_USER/YOUR_REPO.git
+    repoURL: https://github.com/luiscorreiaOps/cluster-template.git
     targetRevision: HEAD
     path: kubernetes/infrastructure
   destination:
@@ -44,7 +44,7 @@ metadata:
 spec:
   project: default
   source:
-    repoURL: https://github.com/YOUR_USER/YOUR_REPO.git
+    repoURL: https://github.com/luiscorreiaOps/cluster-template.git
     targetRevision: HEAD
     path: kubernetes/apps
   destination:
