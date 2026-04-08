@@ -8,12 +8,12 @@ tasks:
   bootstrap:tools:
     desc: Instala localmente
     cmds:
-    - mkdir -p bin
-    - curl -sL https://github.com/go-task/task/releases/download/v3.38.0/task_linux_amd64.tar.gz | tar xz -C bin task
-    - curl -sL https://github.com/siderolabs/talos/releases/download/v1.7.5/talosctl-linux-amd64 -o bin/talosctl
-    - curl -sL https://github.com/getsops/sops/releases/download/v3.8.1/sops-v3.8.1.linux.amd64 -o bin/sops
-    - curl -sL https://github.com/FiloSottile/age/releases/download/v1.2.0/age-v1.2.0-linux-amd64.tar.gz | tar xz --strip-components=1 -C bin age/age age/age-keygen
-    - chmod +x bin/*
+      - mkdir -p bin
+      - curl -sL https://github.com/go-task/task/releases/download/v3.38.0/task_linux_amd64.tar.gz | tar xz -C bin task
+      - curl -sL https://github.com/siderolabs/talos/releases/download/v1.7.5/talosctl-linux-amd64 -o bin/talosctl
+      - curl -sL https://github.com/getsops/sops/releases/download/v3.8.1/sops-v3.8.1.linux.amd64 -o bin/sops
+      - curl -sL https://github.com/FiloSottile/age/releases/download/v1.2.0/age-v1.2.0-linux-amd64.tar.gz | tar xz --strip-components=1 -C bin age/age age/age-keygen
+      - chmod +x bin/*
 
   talos:generate-config:
     desc: Config do Talos via template
@@ -21,16 +21,16 @@ tasks:
   bootstrap:cluster:
     desc: cluster Talos local via Docker
     cmds:
-    - ./bin/talosctl cluster create --name home-cluster --provisioner docker
-    - ./bin/talosctl kubeconfig --context home-cluster --nodes 10.5.0.2
+      - ./bin/talosctl cluster create --name home-cluster --provisioner docker
+      - ./bin/talosctl kubeconfig --context home-cluster --nodes 10.5.0.2
 
   bootstrap:argocd:
     desc: Inst ArgoCD no cluster
     cmds:
-    - kubectl create namespace argocd --dry-run=client -o yaml | kubectl apply -f -
-    - kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml --server-side --force-conflicts
+      - kubectl create namespace argocd --dry-run=client -o yaml | kubectl apply -f -
+      - kubectl apply -n argocd -f https://raw.githubusercontent.com/argoproj/argo-cd/stable/manifests/install.yaml --server-side --force-conflicts
 
   talos:reset:
     desc: Reset do cluster
     cmds:
-    - ./bin/talosctl cluster destroy --name home-cluster
+      - ./bin/talosctl cluster destroy --name home-cluster

@@ -14,17 +14,17 @@ spec:
         app: chaos-api
     spec:
       containers:
-      - name: chaos-api
-        image: rickdevops/chaos-api:latest
-        ports:
-        - containerPort: 8000
-        resources:
-          limits:
-            cpu: 500m
-            memory: 512Mi
-          requests:
-            cpu: 100m
-            memory: 128Mi
+        - name: chaos-api
+          image: rickdevops/chaos-api:latest
+          ports:
+            - containerPort: 8000
+          resources:
+            limits:
+              cpu: 500m
+              memory: 512Mi
+            requests:
+              cpu: 100m
+              memory: 128Mi
 ---
 apiVersion: v1
 kind: Service
@@ -35,5 +35,5 @@ spec:
   selector:
     app: chaos-api
   ports:
-  - port: 80
-    targetPort: 8000
+    - port: 80
+      targetPort: 8000

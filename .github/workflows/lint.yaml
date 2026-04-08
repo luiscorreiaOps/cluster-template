@@ -1,5 +1,5 @@
 name: Lint YAML
-on: [push, pull_request]
+"on": [push, pull_request]
 jobs:
   lint:
     runs-on: ubuntu-latest
@@ -16,3 +16,4 @@ jobs:
             rules:
               line-length: disable
               document-start: disable
+              truthy: disable

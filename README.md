@@ -4,23 +4,23 @@ Projeto template de cluster Kubernetes gerenciado via GitOps, utilizando Talos e
 
 ## Arquitetura e Componentes
 
- **OS:** Talos Linux (Imutavel e sem SSH)
- **GitOps:** ArgoCD (App-of-Apps)
- **Ingress/Gateway:** Envoy Gateway (Gateway API)
- **Network:** Cilium (CNI)
- **DNS:** External-DNS + Cloudflare
- **Seguranca:** SOPS (Criptografia de segredos)
- **Autoscaling:** Metrics Server, HPA e VPA
- **CI/CD:** GitHub Actions (Lint e Validacao via act)
+- **OS:** Talos Linux (Imutavel e sem SSH)
+- **GitOps:** ArgoCD (App-of-Apps)
+- **Ingress/Gateway:** Envoy Gateway (Gateway API)
+- **Network:** Cilium (CNI)
+- **DNS:** External-DNS + Cloudflare
+- **Seguranca:** SOPS (Criptografia de segredos)
+- **Autoscaling:** Metrics Server, HPA e VPA
+- **CI/CD:** GitHub Actions (Lint e Validacao via act)
 
 ## Repositorio
 
- `kubernetes/argocd/`: Manifestos do Root Application (App of Apps)
- `kubernetes/infrastructure/`: Componentes de infraestrutura (Cilium, Cert-Manager, Envoy, etc)
- `kubernetes/apps/`: Aplicacoes de negocio (ex: chaos-api)
- `talos/`: Configuracoes e patches do Talos Linux
- `bin/`: Binarios das ferramentas necessarias (local)
- - `http://chaos.local:8080/docs` api com documentacao Swagger
+- `kubernetes/argocd/`: Manifestos do Root Application (App of Apps)
+- `kubernetes/infrastructure/`: Componentes de infraestrutura (Cilium, Cert-Manager, Envoy, etc)
+- `kubernetes/apps/`: Aplicacoes de negocio (ex: chaos-api)
+- `talos/`: Configuracoes e patches do Talos Linux
+- `bin/`: Binarios das ferramentas necessarias (local)
+- `http://chaos.local:8080/docs` api com documentacao Swagger
 
 ## Gerenciamento (Kustomize)
 
