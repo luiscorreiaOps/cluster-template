@@ -7,3 +7,4 @@ resources:
   - envoy-gateway/application.yaml
   - reloader/application.yaml
   - cloudflared/application.yaml
+  - velero/application.yaml

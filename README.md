@@ -7,7 +7,8 @@ Projeto template de cluster Kubernetes gerenciado via GitOps, utilizando Talos e
 - **OS:** Talos Linux (Imutavel e sem SSH)
 - **GitOps:** ArgoCD (App-of-Apps)
 - **Ingress/Gateway:** Envoy Gateway (Gateway API)
-- **Network:** Cilium (CNI)
+- **Network:** Cilium (CNI) + CiliumNetworkPolicy (Zero Trust)
+- **Backup:** Velero (Backup & Restore)
 - **DNS:** External-DNS + Cloudflare
 - **Seguranca:** SOPS (Criptografia de segredos)
 - **Autoscaling:** Metrics Server, HPA e VPA
@@ -22,16 +23,16 @@ Projeto template de cluster Kubernetes gerenciado via GitOps, utilizando Talos e
 - `bin/`: Binarios das ferramentas necessarias (local)
 - `http://chaos.local:8080/docs` api com documentacao Swagger
 
-## Gerenciamento (Kustomize)
+## Kustomize
 
-O projeto utiliza o **Kustomize** para agrupar e organizar os recursos. Cada diretorio dentro de `kubernetes/` possui um arquivo `kustomization.yaml` que:
-1. **Declara os recursos:** Lista todos os arquivos YAML (Deployments, Services, etc) que pertencem ao componente.
-2. **ArgoCD:** O ArgoCD le o arquivo `kustomization.yaml` para saber exatamente o que instalar e em qual ordem.
+Agrupa e os recursos. `kubernetes/`  `kustomization.yaml`:
+1. **Declara os recursos:** Lista  YAML  que pertencem ao componente.
+2. **ArgoCD:** Le `kustomization.yaml`.
 
-Ao adicionar uma nova aplicacao:
-- Crie o diretorio em `kubernetes/apps/<seu-app>/`.
-- Adicione o arquivo `kustomization.yaml` listando os novos manifestos.
-- Registre o novo diretorio no arquivo `kubernetes/apps/kustomization.yaml` principal.
+Apss:
+`kubernetes/apps/<*app>/`. app
+`kustomization.yaml`  manifestos.
+`kubernetes/apps/kustomization.yaml` regristro.
 
 ## Bootstrap
 
@@ -65,5 +66,17 @@ O cluster esta configurado com:
  **VPA:** Ajusta automaticamente os recursos (requests/limits) dos pods.
  **Metrics Server:** Fornece os dados necessarios para o funcionamento dos autoscalers.
 
+## Testes
+
+ `simulacao/`:
+ `CiliumNetworkPolicy` bloqueia acessos.
+ `./simulacao/test-network-policy.sh` test
+ `./simulacao/stress-test.sh` test
+ `./bin/velero backup create validation-test --include-namespaces chaos-api` bkp
+ `./bin/velero backup get` bkp
+ `cilium`: On/Off  para restaurar o DNS interno usando CNI padrao do Talos ou `kubernetes/infrastructure/cilium`.
+ `minio` e `velero` `privileged` para disco local.
+ `taints`: On/off
+
 ---
-Projeto idempotente, reprodutivel e seguro. Sem intervencao manual apos o bootstrap.
+Projeto idempotente, reprodutivel e seguro. Detalhes completos no README2.md.

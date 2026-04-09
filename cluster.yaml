@@ -1,3 +1,5 @@
+---
+# Custom Cluster Configuration
 clusterName: home-cluster
 domain: algumurl.com
 network:
