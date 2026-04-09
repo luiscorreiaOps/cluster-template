@@ -8,20 +8,20 @@ spec:
     matchLabels:
       app: chaos-api
   ingress:
-  - fromEndpoints:
-    - matchLabels:
-        io.kubernetes.pod.namespace: envoy-gateway-system
-    toPorts:
-    - ports:
-      - port: "8000"
-        protocol: TCP
+    - fromEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: envoy-gateway-system
+      toPorts:
+        - ports:
+            - port: "8000"
+              protocol: TCP
   # bloqueio Envoy
   egress:
-  - toEndpoints:
-    - matchLabels:
-        io.kubernetes.pod.namespace: kube-system
-        k8s-app: kube-dns
-    toPorts:
-    - ports:
-      - port: "53"
-        protocol: UDP
+    - toEndpoints:
+        - matchLabels:
+            io.kubernetes.pod.namespace: kube-system
+            k8s-app: kube-dns
+      toPorts:
+        - ports:
+            - port: "53"
+              protocol: UDP
