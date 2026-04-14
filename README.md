@@ -79,4 +79,4 @@ O cluster esta configurado com:
  `taints`: On/off
 
 ---
-Projeto idempotente, reprodutivel e seguro. Detalhes completos no README2.md.
+Projeto idempotente, reprodutivel e seguro. Sem intervencao manual apos o bootstrap.
